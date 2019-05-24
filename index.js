@@ -12,7 +12,7 @@ function getCmd() {
         case 'win32':
             return safeLocalPath(path.join(__dirname, '/lib/win32/mediainfo.exe'));
         case 'linux':
-            return "LD_LIBRARY_PATH=" + safeLocalPath(path.join(__dirname, '/lib/linux' + arch)) + " " + safeLocalPath(path.join(__dirname, '/lib/linux' + arch, '/mediainfo'));
+            return 'mediainfo';
         default:
             throw 'unsupported platform';
     }
@@ -108,7 +108,7 @@ module.exports = function MediaInfo() {
     var cmd = [];
 
     cmd.push(getCmd()); // base command
-    cmd.push('--Output=XML --Full'); // args
+    cmd.push('--Output=OLDXML --Full'); // args
     Array.prototype.slice.apply(args).forEach(function (val, idx) {
         var files = glob.sync(val, {cwd: (cmd_options.cwd || process.cwd()), nonull: true});
         for (var i in files) {
